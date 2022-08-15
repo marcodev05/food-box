@@ -1,4 +1,4 @@
-package com.tsk.model;
+package com.tsk.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

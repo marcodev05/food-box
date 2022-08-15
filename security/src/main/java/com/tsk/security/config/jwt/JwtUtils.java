@@ -1,7 +1,7 @@
 package com.tsk.security.config.jwt;
 
 
-import com.tsk.model.Users;
+import com.tsk.domain.entities.Users;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -27,7 +27,7 @@ public class JwtUtils {
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRE_DURATION))
                 .setClaims(claims)
-                .signWith(SignatureAlgorithm.ES512, SECRET_KEY)
+                .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
                 .compact();
     }
 

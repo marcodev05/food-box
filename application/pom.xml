@@ -25,10 +25,8 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.tsk</groupId>
-            <artifactId>security</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
     <packaging>jar</packaging>

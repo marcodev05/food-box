@@ -1,7 +1,9 @@
 package com.tsk.service.auth;
 
-import com.tsk.dto.auth.UserRequest;
-import com.tsk.model.Users;
+import com.tsk.domain.dto.LoginRequest;
+import com.tsk.domain.dto.LoginResponse;
+import com.tsk.domain.dto.UserRequest;
+import com.tsk.domain.entities.Users;
 
 public interface IAuthService {
 
@@ -11,4 +13,5 @@ public interface IAuthService {
 
     public Users getByEmailAndPassword(String email, String password);
 
+    public LoginResponse login(LoginRequest request);
 }

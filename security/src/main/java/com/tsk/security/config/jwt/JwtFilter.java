@@ -30,6 +30,7 @@ public class JwtFilter extends OncePerRequestFilter {
         System.out.println(" je doit filtrer cette requette");
         try {
             if (token != null && jwtUtils.validateToken(token)) {
+                System.out.println(" le token est bien validé");
                 String email = jwtUtils.getEmailFromToken(token);
                 CustomUserDetails customUserDetails = customUserDetailsService.loadUserByUsername(email);
                 UsernamePasswordAuthenticationToken auth =

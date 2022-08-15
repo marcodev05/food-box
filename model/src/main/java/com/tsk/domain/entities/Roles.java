@@ -1,4 +1,4 @@
-package com.tsk.model;
+package com.tsk.domain.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

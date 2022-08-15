@@ -1,4 +1,5 @@
-package com.tsk.controller.config;
+package com.tsk.security.config;
+
 
 import com.tsk.security.config.jwt.JwtFilter;
 import org.springframework.beans.factory.annotation.Autowired;

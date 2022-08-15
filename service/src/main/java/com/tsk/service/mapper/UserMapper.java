@@ -1,7 +1,7 @@
 package com.tsk.service.mapper;
 
-import com.tsk.dto.auth.UserRequest;
-import com.tsk.model.Users;
+import com.tsk.domain.dto.UserRequest;
+import com.tsk.domain.entities.Users;
 import org.mapstruct.Mapper;
 
 @Mapper

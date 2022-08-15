@@ -21,12 +21,6 @@
     <dependencies>
         <dependency>
             <groupId>com.tsk</groupId>
-            <artifactId>dto</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.tsk</groupId>
             <artifactId>model</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
