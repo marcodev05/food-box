@@ -1,0 +1,56 @@
+server:
+    port: 8082
+    #address: http://foodbox.com
+    error:
+        include-message: always
+        include-binding-errors: always
+
+
+spring:
+    profiles:
+        active: development
+
+---
+
+spring:
+    config:
+        activate:
+            on-profile: development
+    datasource:
+        username: marco
+        password: 1234
+        url: jdbc:postgresql://localhost:5432/food
+    jpa:
+        show-sql: 'true'
+        hibernate:
+            ddl-auto: create
+    servlet:
+        multipart:
+            enabled: 'true'
+            max-file-size: 50MB
+jwt-secret: jpgfop8WyHu1ULufJJXm0PV20/J9BD2HqTAKDZ+/qTv4glDJjyIlo/PIhehQJqSrdIim4fjuwkax9FOCuFQ9nesv32hZ6rbFjETeQSxUPjNzsYGOuULWSR3cI8FuV9InlSZQ7q6dEunLPRf/rZujxiAxGzY8zrMehjM5LNdl7qDEOsc109Yy3HBbOwUdJyyTg/GRPwklLogw9kkldz5+wMvwOT38IlkO2rCrqJpqqt1KmxdOQNbeGwNzZiGiuYId
+
+---
+
+spring:
+    config:
+        activate:
+            on-profile: production
+    datasource:
+        url: https://tictac-dev.com/foodbox
+        username: admin
+        password: admin1234
+    jpa:
+        show-sql: 'true'
+        hibernate:
+            ddl-auto: update
+    servlet:
+        multipart:
+            enabled: 'true'
+            max-file-size: 100MB
+twilio:
+    account_sid: ''
+    auth_token: ''
+    trial_number: ''
+jwt:
+    secret: ''
