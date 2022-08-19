@@ -1,16 +1,19 @@
 package com.tsk.domain.dto;
 
-import com.tsk.domain.entities.Roles;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class LoginResponse {
+@NoArgsConstructor
+public class AuthResponse {
 
     private String token;
+
+    private Long id;
 
     private String firstname;
 
@@ -18,6 +21,6 @@ public class LoginResponse {
 
     private String email;
 
-    private List<Roles> roles;
+    private List<String> roles;
 
 }

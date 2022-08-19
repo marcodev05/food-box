@@ -1,7 +1,7 @@
 package com.tsk.security.config;
 
 import com.tsk.dao.UserRepository;
-import com.tsk.domain.entities.Users;
+import com.tsk.domain.entities.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,7 +18,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Override
 	public CustomUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		Users user = userRepository.findByEmail(username);
+		UserEntity user = userRepository.findByEmail(username);
 		return CustomUserDetails.fromUsersToUserDetails(user);
 	}
 

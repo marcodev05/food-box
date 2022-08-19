@@ -1,0 +1,12 @@
+package com.tsk.tools.mapper;
+
+import com.tsk.domain.dto.request.OrderLineDtoRequest;
+import com.tsk.domain.entities.OrderLine;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
+@Mapper
+public interface OrderLineMapper {
+    @Mapping(target = "menu.menuId", source = "menuId")
+    OrderLine toOrderLine(OrderLineDtoRequest orderLineDtoRequest);
+}

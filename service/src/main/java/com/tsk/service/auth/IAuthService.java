@@ -1,17 +1,21 @@
 package com.tsk.service.auth;
 
 import com.tsk.domain.dto.LoginRequest;
-import com.tsk.domain.dto.LoginResponse;
+import com.tsk.domain.dto.AuthResponse;
 import com.tsk.domain.dto.UserRequest;
-import com.tsk.domain.entities.Users;
+import com.tsk.domain.entities.UserEntity;
 
 public interface IAuthService {
 
-    public Users register(UserRequest request);
+    public AuthResponse register(UserRequest request);
 
-    public Users getByEmail(String email);
+    public UserEntity getByEmail(String email);
 
-    public Users getByEmailAndPassword(String email, String password);
+    public UserEntity getByEmailAndPassword(String email, String password);
 
-    public LoginResponse login(LoginRequest request);
+    public AuthResponse login(LoginRequest request);
+
+    public Boolean addRoleToUser(Long userId, Integer roleId);
+
+    public UserEntity getCurrentUser();
 }

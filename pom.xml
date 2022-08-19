@@ -11,6 +11,8 @@
         <module>serviceImpl</module>
         <module>security</module>
 		<module>exceptions</module>
+        <module>paymentService</module>
+		<module>tools</module>
 	</modules>
     <parent>
 		<groupId>org.springframework.boot</groupId>

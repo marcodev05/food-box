@@ -19,7 +19,7 @@ import java.util.Collection;
 @Data
 @EnableJpaAuditing
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
-public class Users {
+public class UserEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
@@ -49,7 +49,7 @@ public class Users {
             inverseJoinColumns = @JoinColumn(
                     name = "role_id")
     )
-    private Collection<Roles> roles = new ArrayList<>();
+    private Collection<RoleEntity> roles = new ArrayList<>();
 
     @CreatedDate
     private Instant createdAt;

@@ -3,6 +3,7 @@ package com.tsk.security.config.jwt;
 import com.tsk.security.config.CustomUserDetails;
 import com.tsk.security.config.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -37,12 +38,16 @@ public class JwtFilter extends OncePerRequestFilter {
                         new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
 
                 SecurityContextHolder.getContext().setAuthentication(auth);
+                filterChain.doFilter(request, response);
+            }else {
+                filterChain.doFilter(request, response);
             }
 
         } catch (Exception e) {
+            filterChain.doFilter(request, response);
             e.printStackTrace();
+            //throw new BadCredentialsException("Access denied");
         }
-        filterChain.doFilter(request, response);
     }
 
 

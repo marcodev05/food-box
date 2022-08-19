@@ -20,9 +20,5 @@ public class RegisterResponse {
 
     private String address2;
 
-    private String city;
-
-    private String phone;
-
     private String token;
 }

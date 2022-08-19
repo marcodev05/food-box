@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.tsk.domain.entities.Users;
+import com.tsk.domain.entities.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,7 +16,7 @@ public class CustomUserDetails implements UserDetails {
 	private String password;
 	Collection<? extends GrantedAuthority> granteAuthority;
 
-	public static CustomUserDetails fromUsersToUserDetails(Users user) {
+	public static CustomUserDetails fromUsersToUserDetails(UserEntity user) {
 		CustomUserDetails c = new CustomUserDetails();
 		c.email = user.getEmail();
 		c.password = user.getPassword();
