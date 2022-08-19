@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.tsk.application.utils.Constants.URL_MANAGER;
-import static com.tsk.application.utils.Constants.URL_PUBLIC;
+import static com.tsk.application.utils.Constants.*;
 
 @RestController
 public class OrderController {
@@ -24,7 +23,7 @@ public class OrderController {
         this.iOrderService = orderService;
     }
 
-    @PostMapping(URL_PUBLIC + "/orders/add")
+    @PostMapping(URL_USER + "/orders/add")
     public ResponseEntity<OrderDtoResponse> addMenu(@RequestBody OrderDtoRequest request) {
         OrderDtoResponse order = iOrderService.createOrder(request);
         return new ResponseEntity<>(order, HttpStatus.CREATED);

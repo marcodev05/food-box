@@ -1,14 +1,16 @@
 package com.tsk.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -20,17 +22,22 @@ public class OrderEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long OrderId;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToOne
+    @JsonIgnore
+    private UserEntity userEntity;
+
+    @OneToMany
     private Collection<OrderLine> orderLines = new ArrayList<>();
 
     private Boolean validated;
 
     @ManyToOne
-    @JoinColumn(name = "payment_code")
     private PaymentMethod paymentMethod;
+
 
     private Double total;
 
+
     @CreatedDate
-    private Instant createdAt;
+    private Date createdAt;
 }

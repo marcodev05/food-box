@@ -9,10 +9,12 @@ import com.tsk.domain.dto.UserRequest;
 import com.tsk.domain.entities.RoleEntity;
 import com.tsk.domain.entities.UserEntity;
 import com.tsk.exception.ResourceNotFoundException;
+import com.tsk.security.config.CustomUserDetails;
 import com.tsk.security.config.jwt.JwtUtils;
 import com.tsk.service.auth.IAuthService;
 import com.tsk.tools.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,13 +28,13 @@ import java.util.stream.Collectors;
 public class AuthServiceImpl implements IAuthService {
 
     @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
     @Autowired
-    private RoleRepository roleRepository;
+    RoleRepository roleRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     private JwtUtils jwtUtils;
@@ -107,6 +109,7 @@ public class AuthServiceImpl implements IAuthService {
         return null;
     }
 
+
     @Override
     public Boolean addRoleToUser(Long userId, Integer roleId) {
         UserEntity user = fetchById(userId);
@@ -119,9 +122,10 @@ public class AuthServiceImpl implements IAuthService {
     }
 
 
-    @Override
+   @Override
     public UserEntity getCurrentUser() {
-        return null;
+        Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return getByEmail(((CustomUserDetails) user).getUsername());
     }
 
 

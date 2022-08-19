@@ -18,7 +18,7 @@ public class OrderDtoResponse {
 
     private Collection<OrderLine> orderLines;
 
-    private String paymentMethod;
+    private PaymentMethod paymentMethod;
 
     private Double total;
 }

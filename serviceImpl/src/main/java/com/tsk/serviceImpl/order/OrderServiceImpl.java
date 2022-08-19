@@ -5,16 +5,20 @@ import com.tsk.domain.dto.request.OrderDtoRequest;
 import com.tsk.domain.dto.response.OrderDtoResponse;
 import com.tsk.domain.entities.OrderEntity;
 import com.tsk.domain.entities.OrderLine;
+import com.tsk.domain.entities.PaymentMethod;
+import com.tsk.domain.entities.UserEntity;
+import com.tsk.service.auth.IAuthService;
 import com.tsk.service.order.IOrderService;
 import com.tsk.service.orderline.IOrderLineService;
+import com.tsk.service.payment_method.IPaymentMethodService;
 import com.tsk.tools.mapper.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 @Service
 @Transactional
@@ -25,6 +29,12 @@ public class OrderServiceImpl implements IOrderService {
 
     @Autowired
     IOrderLineService iOrderLineService;
+
+    @Autowired
+    IAuthService iAuthService;
+
+    @Autowired
+    IPaymentMethodService iPaymentMethodService;
 
     @Autowired
     OrderMapper orderMapper;
@@ -50,9 +60,14 @@ public class OrderServiceImpl implements IOrderService {
 
         orderEntity.setTotal(total);
         /***** payment methode *********/
-        //orderEntity.setPaymentMethod();
+        PaymentMethod method = iPaymentMethodService.getMethodByCode(request.getPaymentCode());
+        orderEntity.setPaymentMethod(method);
 
-        orderEntity.setCreatedAt(Instant.now());
+        /***** execute BY User *********/
+        UserEntity currentUser = iAuthService.getCurrentUser();
+        orderEntity.setUserEntity(currentUser);
+
+        orderEntity.setCreatedAt(new Date());
         OrderEntity createdOrder = orderRepository.save(orderEntity);
         return orderMapper.fromOrderToDtoResponse(createdOrder);
     }

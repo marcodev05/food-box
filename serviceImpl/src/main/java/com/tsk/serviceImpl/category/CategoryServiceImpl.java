@@ -31,7 +31,7 @@ public class CategoryServiceImpl implements ICategoryService {
             Category c = categoryMapper.fromRequestToCategory(category);
             Category created = categoryRepository.save(c);
             return created;
-        } catch (Exception e){
+        } catch (Exception e) {
             e.getStackTrace();
             return null;
         }

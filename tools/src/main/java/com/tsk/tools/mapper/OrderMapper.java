@@ -11,6 +11,6 @@ public interface OrderMapper {
 
     OrderEntity toOrderEntity(OrderDtoRequest orderDtoRequest);
 
-    @Mapping(target = "paymentMethod", source = "paymentMethod.code")
+    @Mapping(target = "paymentMethod", source = "paymentMethod")
     OrderDtoResponse fromOrderToDtoResponse(OrderEntity orderEntity);
 }
