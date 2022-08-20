@@ -1,6 +1,6 @@
 package com.tsk.application.web.menu;
 
-import com.tsk.domain.dto.request.MenuDtoRequest;
+import com.tsk.domain.dto.menu.MenuDtoRequest;
 import com.tsk.domain.entities.Menu;
 import com.tsk.exception.BadRequestException;
 import com.tsk.service.menu.IMenuService;

@@ -1,7 +1,7 @@
 package com.tsk.service.order;
 
-import com.tsk.domain.dto.request.OrderDtoRequest;
-import com.tsk.domain.dto.response.OrderDtoResponse;
+import com.tsk.domain.dto.order.OrderDtoRequest;
+import com.tsk.domain.dto.order.OrderDtoResponse;
 import com.tsk.domain.entities.OrderEntity;
 
 public interface IOrderService {

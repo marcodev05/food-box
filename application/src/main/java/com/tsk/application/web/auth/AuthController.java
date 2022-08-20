@@ -1,9 +1,9 @@
 package com.tsk.application.web.auth;
 
 
-import com.tsk.domain.dto.LoginRequest;
-import com.tsk.domain.dto.AuthResponse;
-import com.tsk.domain.dto.UserRequest;
+import com.tsk.domain.dto.auth.LoginRequest;
+import com.tsk.domain.dto.auth.AuthResponse;
+import com.tsk.domain.dto.auth.UserRequest;
 
 import com.tsk.service.auth.IAuthService;
 import org.springframework.beans.factory.annotation.Autowired;

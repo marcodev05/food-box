@@ -1,16 +1,15 @@
 package com.tsk.serviceImpl.order;
 
+import com.tsk.dao.ContactRepository;
 import com.tsk.dao.OrderRepository;
-import com.tsk.domain.dto.request.OrderDtoRequest;
-import com.tsk.domain.dto.response.OrderDtoResponse;
-import com.tsk.domain.entities.OrderEntity;
-import com.tsk.domain.entities.OrderLine;
-import com.tsk.domain.entities.PaymentMethod;
-import com.tsk.domain.entities.UserEntity;
+import com.tsk.domain.dto.order.OrderDtoRequest;
+import com.tsk.domain.dto.order.OrderDtoResponse;
+import com.tsk.domain.entities.*;
 import com.tsk.service.auth.IAuthService;
 import com.tsk.service.order.IOrderService;
 import com.tsk.service.orderline.IOrderLineService;
 import com.tsk.service.payment_method.IPaymentMethodService;
+import com.tsk.tools.mapper.ContactMapper;
 import com.tsk.tools.mapper.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +27,9 @@ public class OrderServiceImpl implements IOrderService {
     OrderRepository orderRepository;
 
     @Autowired
+    ContactRepository contactRepository;
+
+    @Autowired
     IOrderLineService iOrderLineService;
 
     @Autowired
@@ -39,26 +41,21 @@ public class OrderServiceImpl implements IOrderService {
     @Autowired
     OrderMapper orderMapper;
 
+    @Autowired
+    ContactMapper contactMapper;
+
     @Override
     public OrderDtoResponse createOrder(OrderDtoRequest request) {
         OrderEntity orderEntity = new OrderEntity();
 
         /***** create order line *******/
-        Collection<OrderLine> orderLines = new ArrayList<OrderLine>();
-        request.getOrderLines().forEach((line -> {
-            OrderLine o = iOrderLineService.createOrderLine(line);
-            orderLines.add(o);
-        }));
+        Collection<OrderLine> orderLines = getOrderLinesToOrder(request);
         orderEntity.setOrderLines(orderLines);
 
-        /***** calculate total *********/
-
-        double total = 0.0;
-        for (OrderLine ln : orderLines) {
-            total = total + ln.getMount();
-        }
-
+        /***** calculate order mount ****/
+        double total = getTotalOrder(orderLines);
         orderEntity.setTotal(total);
+
         /***** payment methode *********/
         PaymentMethod method = iPaymentMethodService.getMethodByCode(request.getPaymentCode());
         orderEntity.setPaymentMethod(method);
@@ -67,10 +64,15 @@ public class OrderServiceImpl implements IOrderService {
         UserEntity currentUser = iAuthService.getCurrentUser();
         orderEntity.setUserEntity(currentUser);
 
+        /***** Delivery address *******/
+        Contact contact = getContactOfRecipient(request, currentUser);
+        orderEntity.setContact(contact);
+
         orderEntity.setCreatedAt(new Date());
         OrderEntity createdOrder = orderRepository.save(orderEntity);
         return orderMapper.fromOrderToDtoResponse(createdOrder);
     }
+
 
 
     @Override
@@ -87,4 +89,36 @@ public class OrderServiceImpl implements IOrderService {
     public Boolean validateOrder(Long orderId) {
         return null;
     }
+
+
+    private static double getTotalOrder(Collection<OrderLine> orderLines) {
+        double total = 0.0;
+        for (OrderLine ln : orderLines) {
+            total = total + ln.getMount();
+        }
+        return total;
+    }
+
+
+    private Contact getContactOfRecipient(OrderDtoRequest request, UserEntity currentUser) {
+        Contact contact;
+        if (request.getContact() == null) {
+            contact = currentUser.getContact();
+        } else {
+            contact = contactMapper.fromContactDtoToContact(request.getContact());
+            contact = contactRepository.save(contact);
+        }
+        return contact;
+    }
+
+
+    private Collection<OrderLine> getOrderLinesToOrder(OrderDtoRequest request) {
+        Collection<OrderLine> orderLines = new ArrayList<OrderLine>();
+        request.getOrderLines().forEach((line -> {
+            OrderLine o = iOrderLineService.createOrderLine(line);
+            orderLines.add(o);
+        }));
+        return orderLines;
+    }
+
 }

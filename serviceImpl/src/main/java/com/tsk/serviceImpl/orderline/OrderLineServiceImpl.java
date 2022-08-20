@@ -1,7 +1,7 @@
 package com.tsk.serviceImpl.orderline;
 
 import com.tsk.dao.OrderLineRepository;
-import com.tsk.domain.dto.request.OrderLineDtoRequest;
+import com.tsk.domain.dto.orderline.OrderLineDtoRequest;
 import com.tsk.domain.entities.Menu;
 import com.tsk.domain.entities.OrderLine;
 import com.tsk.exception.BadRequestException;

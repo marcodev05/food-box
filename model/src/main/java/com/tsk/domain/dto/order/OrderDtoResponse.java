@@ -1,12 +1,12 @@
-package com.tsk.domain.dto.response;
+package com.tsk.domain.dto.order;
 
+import com.tsk.domain.dto.contact.ContactDto;
 import com.tsk.domain.entities.OrderLine;
 import com.tsk.domain.entities.PaymentMethod;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 @Data
@@ -19,6 +19,8 @@ public class OrderDtoResponse {
     private Collection<OrderLine> orderLines;
 
     private PaymentMethod paymentMethod;
+
+    private ContactDto contact;
 
     private Double total;
 }

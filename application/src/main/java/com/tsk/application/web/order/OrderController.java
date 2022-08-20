@@ -1,9 +1,7 @@
 package com.tsk.application.web.order;
 
-import com.tsk.domain.dto.request.MenuDtoRequest;
-import com.tsk.domain.dto.request.OrderDtoRequest;
-import com.tsk.domain.dto.response.OrderDtoResponse;
-import com.tsk.domain.entities.Menu;
+import com.tsk.domain.dto.order.OrderDtoRequest;
+import com.tsk.domain.dto.order.OrderDtoResponse;
 import com.tsk.service.order.IOrderService;
 import com.tsk.serviceImpl.order.OrderServiceImpl;
 import org.springframework.http.HttpStatus;

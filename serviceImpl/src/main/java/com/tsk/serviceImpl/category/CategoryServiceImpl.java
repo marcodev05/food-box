@@ -1,7 +1,7 @@
 package com.tsk.serviceImpl.category;
 
 import com.tsk.dao.CategoryRepository;
-import com.tsk.domain.dto.request.CategoryDtoRequest;
+import com.tsk.domain.dto.category.CategoryDtoRequest;
 import com.tsk.domain.entities.Category;
 import com.tsk.domain.entities.Menu;
 import com.tsk.exception.BadRequestException;

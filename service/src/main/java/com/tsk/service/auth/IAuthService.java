@@ -1,8 +1,8 @@
 package com.tsk.service.auth;
 
-import com.tsk.domain.dto.LoginRequest;
-import com.tsk.domain.dto.AuthResponse;
-import com.tsk.domain.dto.UserRequest;
+import com.tsk.domain.dto.auth.LoginRequest;
+import com.tsk.domain.dto.auth.AuthResponse;
+import com.tsk.domain.dto.auth.UserRequest;
 import com.tsk.domain.entities.UserEntity;
 
 public interface IAuthService {

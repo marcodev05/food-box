@@ -1,4 +1,4 @@
-package com.tsk.domain.dto.request;
+package com.tsk.domain.dto.orderline;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

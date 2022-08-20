@@ -1,6 +1,6 @@
 package com.tsk.tools.mapper;
 
-import com.tsk.domain.dto.request.OrderLineDtoRequest;
+import com.tsk.domain.dto.orderline.OrderLineDtoRequest;
 import com.tsk.domain.entities.OrderLine;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

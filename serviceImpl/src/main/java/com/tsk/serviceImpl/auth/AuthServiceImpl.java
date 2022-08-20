@@ -1,17 +1,20 @@
 package com.tsk.serviceImpl.auth;
 
 
+import com.tsk.dao.ContactRepository;
 import com.tsk.dao.RoleRepository;
 import com.tsk.dao.UserRepository;
-import com.tsk.domain.dto.LoginRequest;
-import com.tsk.domain.dto.AuthResponse;
-import com.tsk.domain.dto.UserRequest;
+import com.tsk.domain.dto.auth.LoginRequest;
+import com.tsk.domain.dto.auth.AuthResponse;
+import com.tsk.domain.dto.auth.UserRequest;
+import com.tsk.domain.entities.Contact;
 import com.tsk.domain.entities.RoleEntity;
 import com.tsk.domain.entities.UserEntity;
 import com.tsk.exception.ResourceNotFoundException;
 import com.tsk.security.config.CustomUserDetails;
 import com.tsk.security.config.jwt.JwtUtils;
 import com.tsk.service.auth.IAuthService;
+import com.tsk.tools.mapper.ContactMapper;
 import com.tsk.tools.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,6 +34,9 @@ public class AuthServiceImpl implements IAuthService {
     UserRepository userRepository;
 
     @Autowired
+    ContactRepository contactRepository;
+
+    @Autowired
     RoleRepository roleRepository;
 
     @Autowired
@@ -40,7 +46,10 @@ public class AuthServiceImpl implements IAuthService {
     private JwtUtils jwtUtils;
 
     @Autowired
-    private UserMapper mapper;
+    UserMapper mapper;
+
+    @Autowired
+    ContactMapper contactMapper;
 
     @Override
     public AuthResponse register(UserRequest request) {
@@ -49,17 +58,25 @@ public class AuthServiceImpl implements IAuthService {
         } else {
             try {
                 UserEntity userEntity = mapper.ToUsers(request);
+
+                Contact contact;
+                contact = contactMapper.fromRequestToContact(request);
+                contact = contactRepository.save(contact);
+                userEntity.setContact(contact);
+
                 userEntity.setRoles(List.of(roleRepository.findByName("USER")));
                 userEntity.setPassword(passwordEncoder.encode(request.getPassword()));
                 UserEntity createdUser = userRepository.save(userEntity);
 
+                /*** generate token ***/
                 String token = jwtUtils.generateAccessToken(createdUser);
                 AuthResponse response = new AuthResponse();
                 response.setId(createdUser.getUserId());
                 response.setToken(token);
+                response.setFirstname(contact.getFirstname());
+                response.setLastname(contact.getLastname());
                 response.setEmail(createdUser.getEmail());
-                response.setFirstname(createdUser.getFirstname());
-                response.setLastname(createdUser.getLastname());
+
                 List<String> roles = createdUser.getRoles().stream()
                         .map(r -> r.getName())
                         .collect(Collectors.toList());
@@ -70,6 +87,8 @@ public class AuthServiceImpl implements IAuthService {
             }
         }
     }
+
+
 
     @Override
     public UserEntity getByEmail(String email) {
@@ -98,8 +117,8 @@ public class AuthServiceImpl implements IAuthService {
             response.setId(user.getUserId());
             response.setToken(token);
             response.setEmail(user.getEmail());
-            response.setFirstname(user.getFirstname());
-            response.setLastname(user.getLastname());
+            response.setFirstname(user.getContact().getFirstname());
+            response.setLastname(user.getContact().getLastname());
             List<String> roles = user.getRoles().stream()
                     .map(r -> r.getName())
                     .collect(Collectors.toList());
@@ -136,15 +155,22 @@ public class AuthServiceImpl implements IAuthService {
 
 
     @PostConstruct
-    private void initRole(){
+    private void initRole() {
         roleRepository.save(new RoleEntity(null, "USER"));
         RoleEntity r = roleRepository.save(new RoleEntity(null, "ADMIN"));
         roleRepository.save(new RoleEntity(null, "DELIVERER"));
+
         UserEntity defaultAdmin = new UserEntity();
         defaultAdmin.setEmail("admin@gmail.com");
         defaultAdmin.setPassword(passwordEncoder.encode("12345678"));
-        defaultAdmin.setFirstname("Admin");
-        defaultAdmin.setLastname("Default");
+        Contact contact = new Contact();
+        contact.setFirstname("Admin");
+        contact.setLastname("Default");
+        contact.setCity("Paris");
+        contact.setAddress1("paris");
+        contact.setPhone("020 020");
+        contact = contactRepository.save(contact);
+        defaultAdmin.setContact(contact);
         defaultAdmin.getRoles().add(r);
         userRepository.save(defaultAdmin);
     }

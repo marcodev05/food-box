@@ -1,4 +1,4 @@
-package com.tsk.domain.dto;
+package com.tsk.domain.dto.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

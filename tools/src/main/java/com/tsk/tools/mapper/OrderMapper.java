@@ -1,7 +1,7 @@
 package com.tsk.tools.mapper;
 
-import com.tsk.domain.dto.request.OrderDtoRequest;
-import com.tsk.domain.dto.response.OrderDtoResponse;
+import com.tsk.domain.dto.order.OrderDtoRequest;
+import com.tsk.domain.dto.order.OrderDtoResponse;
 import com.tsk.domain.entities.OrderEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

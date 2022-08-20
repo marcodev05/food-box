@@ -1,6 +1,6 @@
 package com.tsk.service.category;
 
-import com.tsk.domain.dto.request.CategoryDtoRequest;
+import com.tsk.domain.dto.category.CategoryDtoRequest;
 import com.tsk.domain.entities.Category;
 import com.tsk.domain.entities.Menu;
 

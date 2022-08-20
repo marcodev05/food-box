@@ -1,7 +1,6 @@
 package com.tsk.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,6 +33,8 @@ public class OrderEntity {
     @ManyToOne
     private PaymentMethod paymentMethod;
 
+    @ManyToOne
+    private Contact contact;
 
     private Double total;
 

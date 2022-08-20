@@ -1,7 +1,7 @@
 package com.tsk.serviceImpl.menu;
 
 import com.tsk.dao.MenuRepository;
-import com.tsk.domain.dto.request.MenuDtoRequest;
+import com.tsk.domain.dto.menu.MenuDtoRequest;
 import com.tsk.domain.entities.Category;
 import com.tsk.domain.entities.Menu;
 import com.tsk.exception.ResourceNotFoundException;

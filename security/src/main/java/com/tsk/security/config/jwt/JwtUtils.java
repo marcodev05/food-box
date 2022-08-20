@@ -22,6 +22,7 @@ public class JwtUtils {
 
     public String generateAccessToken(UserEntity user) {
         Claims claims = Jwts.claims();
+        claims.put("userId", user.getUserId());
         claims.put("roles", user.getRoles());
         return Jwts.builder()
                 .setClaims(claims)
