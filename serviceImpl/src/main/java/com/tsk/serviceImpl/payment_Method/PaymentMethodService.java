@@ -3,7 +3,7 @@ package com.tsk.serviceImpl.payment_Method;
 import com.tsk.dao.PaymentMethodRepository;
 import com.tsk.domain.entities.PaymentMethod;
 import com.tsk.exception.ResourceNotFoundException;
-import com.tsk.service.payment_method.IPaymentMethodService;
+import com.tsk.services.payment_method.IPaymentMethodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -8,7 +8,7 @@
         <groupId>com.tsk</groupId>
         <version>1.0.0</version>
     </parent>
-    <artifactId>repository</artifactId>
+    <artifactId>domain</artifactId>
     <packaging>jar</packaging>
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -17,10 +17,8 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>com.tsk</groupId>
-            <artifactId>domain</artifactId>
-            <version>1.0.0</version>
-            <scope>compile</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
     <build>
@@ -28,6 +26,15 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>
+                                compile
+                            </goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
                     <source>11</source>
                     <target>11</target>
@@ -35,19 +42,5 @@
             </plugin>
         </plugins>
     </build>
-<!--    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>-->
+
 </project>

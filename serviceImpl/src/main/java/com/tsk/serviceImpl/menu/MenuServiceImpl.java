@@ -1,21 +1,20 @@
 package com.tsk.serviceImpl.menu;
 
+
 import com.tsk.dao.MenuRepository;
 import com.tsk.domain.dto.menu.MenuDtoRequest;
 import com.tsk.domain.entities.Category;
 import com.tsk.domain.entities.Menu;
 import com.tsk.exception.ResourceNotFoundException;
-import com.tsk.service.category.ICategoryService;
-import com.tsk.service.menu.IMenuService;
-import com.tsk.tools.mapper.MenuMapper;
+import com.tsk.mappers.MenuMapper;
+import com.tsk.services.category.ICategoryService;
+import com.tsk.services.menu.IMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-@Transactional
 public class MenuServiceImpl implements IMenuService {
 
     @Autowired
@@ -26,6 +25,7 @@ public class MenuServiceImpl implements IMenuService {
 
     @Autowired
     private MenuMapper menuMapper;
+
 
     @Override
     public Menu createMenu(MenuDtoRequest request) {
@@ -59,9 +59,9 @@ public class MenuServiceImpl implements IMenuService {
 
     @Override
     public Menu fetchMenuById(Long id) {
-        Menu menu = menuRepository.findById(id)
+        Menu m = menuRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Menu not found"));
-        return menu;
+        return m;
     }
 
 

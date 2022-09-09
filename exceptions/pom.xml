@@ -5,12 +5,14 @@
     <parent>
         <artifactId>food-box</artifactId>
         <groupId>com.tsk</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>exceptions</artifactId>
+    <packaging>jar</packaging>
     <dependencies>
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>

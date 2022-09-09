@@ -11,7 +11,6 @@ spring:
         active: development
 
 ---
-
 spring:
     config:
         activate:
@@ -31,15 +30,14 @@ spring:
 jwt-secret: jpgfop8WyHu1ULufJJXm0PV20/J9BD2HqTAKDZ+/qTv4glDJjyIlo/PIhehQJqSrdIim4fjuwkax9FOCuFQ9nesv32hZ6rbFjETeQSxUPjNzsYGOuULWSR3cI8FuV9InlSZQ7q6dEunLPRf/rZujxiAxGzY8zrMehjM5LNdl7qDEOsc109Yy3HBbOwUdJyyTg/GRPwklLogw9kkldz5+wMvwOT38IlkO2rCrqJpqqt1KmxdOQNbeGwNzZiGiuYId
 
 ---
-
 spring:
     config:
         activate:
             on-profile: production
     datasource:
-        url: https://tictac-dev.com/foodbox
-        username: admin
-        password: admin1234
+        username: root
+        password:
+        url: jdbc:mysql://localhost:3306/food
     jpa:
         show-sql: 'true'
         hibernate:
@@ -48,9 +46,5 @@ spring:
         multipart:
             enabled: 'true'
             max-file-size: 100MB
-twilio:
-    account_sid: ''
-    auth_token: ''
-    trial_number: ''
-jwt:
-    secret: ''
+jwt-secret: jpgfop8WyHu1ULufJJXm0PV20/J9BD2HqTAKDZ+/qTv4glDJjyIlo/PIhehQJqSrdIim4fjuwkax9FOCuFQ9nesv32hZ6rbFjETeQSxUPjNzsYGOuULWSR3cI8FuV9InlSZQ7q6dEunLPRf/rZujxiAxGzY8zrMehjM5LNdl7qDEOsc109Yy3HBbOwUdJyyTg/GRPwklLogw9kkldz5+wMvwOT38IlkO2rCrqJpqqt1KmxdOQNbeGwNzZiGiuYId
+
