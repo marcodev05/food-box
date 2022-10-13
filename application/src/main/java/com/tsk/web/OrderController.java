@@ -6,12 +6,15 @@ import com.tsk.services.order.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static com.tsk.web.utils.Constants.*;
 
+@CrossOrigin("*")
 @RestController
 public class OrderController {
 
@@ -23,4 +26,48 @@ public class OrderController {
         OrderDtoResponse order = iOrderService.createOrder(request);
         return new ResponseEntity<>(order, HttpStatus.CREATED);
     }
+
+
+    @GetMapping(URL_MANAGER + "/orders/status/{status}")
+    public ResponseEntity<List<OrderDtoResponse>> fetchOrderByStatus(@PathVariable("status") String status){
+        List<OrderDtoResponse> orders = iOrderService.fetchOrdersByStatus(status);
+        return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
+
+
+    @GetMapping(URL_MANAGER + "/orders")
+    public ResponseEntity<List<OrderDtoResponse>> fetchAllOrders(){
+        List<OrderDtoResponse> orders = iOrderService.fetchAllOrders();
+        return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
+
+
+    @GetMapping(URL_MANAGER + "/orders/{id}/confirm")
+    public Map<String, Boolean> validateAnOrder(@PathVariable("id") Long id){
+        iOrderService.confirmAnOrder(id);
+        Map<String, Boolean> response = new HashMap<String, Boolean>();
+        response.put("confirmed", Boolean.TRUE);
+        return response;
+    }
+
+
+    @GetMapping(URL_MANAGER + "/orders/{id}/decline")
+    public Map<String, Boolean> declineAnOrder(@PathVariable("id") Long id){
+        iOrderService.declineOrder(id);
+        Map<String, Boolean> response = new HashMap<String, Boolean>();
+        response.put("declined", Boolean.TRUE);
+        return response;
+    }
+
+
+    @GetMapping(URL_MANAGER + "/orders/{id}/assign/{deliverer_id}")
+    public Map<String, Boolean> assignAnOrderToDeliverer(@PathVariable("id") Long id,
+                                                         @PathVariable("deliverer_id") Long deliverer_id) {
+        iOrderService.deliverAnOrder(id, deliverer_id);
+        Map<String, Boolean> response = new HashMap<String, Boolean>();
+        response.put("declined", Boolean.TRUE);
+        return response;
+    }
+
+
 }

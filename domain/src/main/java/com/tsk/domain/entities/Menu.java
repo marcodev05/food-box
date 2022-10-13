@@ -33,9 +33,9 @@ public class Menu {
 
     private Boolean available;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToOne
+    @JoinColumn
     private Category category;
 
     @OneToMany(mappedBy = "menu", fetch = FetchType.LAZY)

@@ -1,6 +1,7 @@
 package com.tsk.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tsk.domain.entities.enumeration.EStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,6 +39,9 @@ public class OrderEntity {
 
     private Double total;
 
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private EStatus status;
 
     @CreatedDate
     private Date createdAt;

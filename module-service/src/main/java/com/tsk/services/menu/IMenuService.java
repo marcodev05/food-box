@@ -17,6 +17,8 @@ public interface IMenuService {
 
     public List<Menu> fetchAllAvailableMenus();
 
+    public List<Menu> fetchAllMenus();
+
     public Menu fetchMenuById(Long id);
 
     public Menu moveMenuToCategory(Long menuId, Long categoryId);

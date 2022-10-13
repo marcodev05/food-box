@@ -23,4 +23,6 @@ public class OrderDtoResponse {
     private ContactDto contact;
 
     private Double total;
+
+    private String status;
 }

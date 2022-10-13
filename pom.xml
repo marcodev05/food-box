@@ -85,11 +85,10 @@
 		<module>repository</module>
 		<module>application</module>
 		<module>domain</module>
-		<module>serviceImpl</module>
+		<module>module-service</module>
 		<module>security</module>
 		<module>exceptions</module>
 		<module>paymentService</module>
-        <module>services</module>
-    </modules>
+	</modules>
 
 </project>

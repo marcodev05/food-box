@@ -5,6 +5,7 @@ import com.tsk.dao.OrderRepository;
 import com.tsk.domain.dto.order.OrderDtoRequest;
 import com.tsk.domain.dto.order.OrderDtoResponse;
 import com.tsk.domain.entities.*;
+import com.tsk.domain.entities.enumeration.EStatus;
 import com.tsk.mappers.ContactMapper;
 import com.tsk.mappers.OrderMapper;
 import com.tsk.services.auth.IAuthService;
@@ -14,10 +15,12 @@ import com.tsk.services.payment_method.IPaymentMethodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Service
 @Transactional
@@ -73,12 +76,58 @@ public class OrderServiceImpl implements IOrderService {
         return orderMapper.fromOrderToDtoResponse(createdOrder);
     }
 
-
+    @Override
+    public List<OrderDtoResponse> fetchOrdersByStatus(String status) {
+        List<OrderEntity> orderEntities = orderRepository.findByStatus(EStatus.valueOf(status.toUpperCase()));
+        return orderMapper.getOrderDtoResponses(orderEntities);
+    }
 
     @Override
-    public OrderEntity fetchAllActiveOrders() {
-        return null;
+    public List<OrderDtoResponse> fetchAllOrders() {
+        List<OrderEntity> orderEntities = orderRepository.findAll();
+        return orderMapper.getOrderDtoResponses(orderEntities);
     }
+
+    @Override
+    public void confirmAnOrder(Long orderId) {
+        try {
+            OrderEntity order = orderRepository.findById(orderId).get();
+            order.setStatus(EStatus.IN_PROCESS);
+
+            // traitement envoie de notification
+
+            orderRepository.save(order);
+        } catch (Exception e) {
+            throw new RuntimeException("Operation failed");
+        }
+    }
+
+    @Override
+    public void declineOrder(Long orderId) {
+        try {
+            OrderEntity order = orderRepository.findById(orderId).get();
+            order.setStatus(EStatus.DECLINED);
+            orderRepository.save(order);
+        } catch (Exception e) {
+            throw new RuntimeException("Operation failed");
+        }
+    }
+
+    @Override
+    public void deliverAnOrder(Long orderId, Long userId) {
+        try {
+            OrderEntity order = orderRepository.findById(orderId).get();
+            order.setStatus(EStatus.CHIPPING);
+            orderRepository.save(order);
+
+            // traitement des données du livreur ici
+
+
+        } catch (Exception e) {
+            throw new RuntimeException("Operation failed");
+        }
+    }
+
 
     @Override
     public Boolean deleteOrder(Long orderId) {

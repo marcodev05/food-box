@@ -1,5 +1,6 @@
 package com.tsk.web;
 
+import com.tsk.domain.dto.menu.MenuDtoRequest;
 import com.tsk.domain.entities.Menu;
 import com.tsk.services.menu.IMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import java.util.Map;
 
 import static com.tsk.web.utils.Constants.*;
 
+@CrossOrigin("*")
 @RestController
 public class MenuController {
 
@@ -41,7 +43,15 @@ public class MenuController {
      *          MANAGER URL
      ****************************/
 
-/*    @PostMapping(URL_MANAGER + "/menus/add")
+
+    @GetMapping(URL_MANAGER + "/menus")
+    public ResponseEntity<List<Menu>> getAllAMenu(){
+        List<Menu> menus = iMenuService.fetchAllMenus();
+        return new ResponseEntity<>(menus, HttpStatus.OK);
+    }
+
+
+    @PostMapping(URL_MANAGER + "/menus/add")
     public ResponseEntity<Menu> addMenu(@RequestBody MenuDtoRequest request) {
         Menu menu = iMenuService.createMenu(request);
         return new ResponseEntity<>(menu, HttpStatus.CREATED);
@@ -51,13 +61,14 @@ public class MenuController {
     public ResponseEntity<Menu> updateMenu(@RequestBody MenuDtoRequest request, @PathVariable("id") Long id) {
         Menu menu = iMenuService.createMenu(request);
             return new ResponseEntity<>(menu, HttpStatus.OK);
-    }*/
+    }
 
     @PostMapping(URL_MANAGER + "/menus/{menuId}/category/{categoryId}")
     public void moveMenuToCategory(@PathVariable("menuId") Long menuId, @PathVariable("categoryId") Long categoryId){
         Menu response = iMenuService.moveMenuToCategory(menuId, categoryId);
     }
 
+    @CrossOrigin("*")
     @DeleteMapping(URL_MANAGER + "/menus/{id}/delete")
     public Map<String, Boolean> deleteProduct(@PathVariable("id") Long id) {
         Boolean deleted = iMenuService.deleteMenu(id);

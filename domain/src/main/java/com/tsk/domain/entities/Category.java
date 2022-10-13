@@ -1,5 +1,6 @@
 package com.tsk.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,8 +27,9 @@ public class Category {
 
     private String picture;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy = "category")
+    @JsonIgnore
     private Collection<Menu> menus;
 
     @CreatedDate

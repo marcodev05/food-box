@@ -19,6 +19,7 @@ import java.util.Map;
 import static com.tsk.web.utils.Constants.URL_MANAGER;
 import static com.tsk.web.utils.Constants.URL_PUBLIC;
 
+@CrossOrigin("*")
 @RestController
 public class CategoryController {
 

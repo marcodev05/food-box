@@ -6,6 +6,8 @@ import com.tsk.domain.entities.OrderEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper
 public interface OrderMapper {
 
@@ -13,4 +15,6 @@ public interface OrderMapper {
 
     @Mapping(target = "paymentMethod", source = "paymentMethod")
     OrderDtoResponse fromOrderToDtoResponse(OrderEntity orderEntity);
+
+    List<OrderDtoResponse> getOrderDtoResponses(List<OrderEntity> orderEntities);
 }

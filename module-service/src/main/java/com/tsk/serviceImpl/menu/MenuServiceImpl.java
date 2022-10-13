@@ -58,6 +58,11 @@ public class MenuServiceImpl implements IMenuService {
     }
 
     @Override
+    public List<Menu> fetchAllMenus() {
+        return menuRepository.findAll();
+    }
+
+    @Override
     public Menu fetchMenuById(Long id) {
         Menu m = menuRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Menu not found"));
