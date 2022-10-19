@@ -2,6 +2,8 @@ package com.tsk.web;
 
 import com.tsk.domain.dto.order.OrderDtoRequest;
 import com.tsk.domain.dto.order.OrderDtoResponse;
+import com.tsk.domain.entities.UserEntity;
+import com.tsk.services.delivery.IDeliveryService;
 import com.tsk.services.order.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,9 @@ public class OrderController {
     @Autowired
     private IOrderService iOrderService;
 
+    @Autowired
+    private IDeliveryService iDeliveryService;
+
     @PostMapping(URL_USER + "/orders/add")
     public ResponseEntity<OrderDtoResponse> addMenu(@RequestBody OrderDtoRequest request) {
         OrderDtoResponse order = iOrderService.createOrder(request);
@@ -33,6 +38,14 @@ public class OrderController {
         List<OrderDtoResponse> orders = iOrderService.fetchOrdersByStatus(status);
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
+
+
+    @GetMapping(URL_MANAGER + "/orders/{id}")
+    public ResponseEntity<OrderDtoResponse> fetchOrderById(@PathVariable("id") Long id) {
+        OrderDtoResponse order = iOrderService.getOrderById(id);
+        return new ResponseEntity<>(order, HttpStatus.OK);
+    }
+
 
 
     @GetMapping(URL_MANAGER + "/orders")

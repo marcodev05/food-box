@@ -6,6 +6,7 @@ import com.tsk.domain.dto.order.OrderDtoRequest;
 import com.tsk.domain.dto.order.OrderDtoResponse;
 import com.tsk.domain.entities.*;
 import com.tsk.domain.entities.enumeration.EStatus;
+import com.tsk.exception.ResourceNotFoundException;
 import com.tsk.mappers.ContactMapper;
 import com.tsk.mappers.OrderMapper;
 import com.tsk.services.auth.IAuthService;
@@ -89,9 +90,16 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
+    public OrderDtoResponse getOrderById(Long orderId) {
+        OrderEntity order = orderRepository.findById(orderId) .orElseThrow(() -> new ResourceNotFoundException("Order does not exist"));
+        return orderMapper.fromOrderToDtoResponse(order);
+    }
+
+    @Override
     public void confirmAnOrder(Long orderId) {
         try {
-            OrderEntity order = orderRepository.findById(orderId).get();
+            OrderEntity order = orderRepository.findById(orderId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Order does not exist"));
             order.setStatus(EStatus.IN_PROCESS);
 
             // traitement envoie de notification
@@ -116,7 +124,11 @@ public class OrderServiceImpl implements IOrderService {
     @Override
     public void deliverAnOrder(Long orderId, Long userId) {
         try {
-            OrderEntity order = orderRepository.findById(orderId).get();
+
+            // verify if user have deliverer role
+
+            OrderEntity order = orderRepository.findById(orderId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Order does not exist"));
             order.setStatus(EStatus.CHIPPING);
             orderRepository.save(order);
 

@@ -16,6 +16,8 @@ import java.util.Collection;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "TYPE")
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
 public class UserEntity {
 

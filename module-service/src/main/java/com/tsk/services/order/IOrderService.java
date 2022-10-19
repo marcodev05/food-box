@@ -15,6 +15,8 @@ public interface IOrderService {
 
     public List<OrderDtoResponse> fetchAllOrders();
 
+    public OrderDtoResponse getOrderById(Long orderId);
+
     public void confirmAnOrder(Long orderId);
 
     public void  declineOrder(Long orderId);

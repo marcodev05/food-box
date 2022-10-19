@@ -157,8 +157,9 @@ public class AuthServiceImpl implements IAuthService {
     @PostConstruct
     private void initRole() {
         roleRepository.save(new RoleEntity(null, "USER"));
-        RoleEntity r = roleRepository.save(new RoleEntity(null, "ADMIN"));
         roleRepository.save(new RoleEntity(null, "DELIVERER"));
+        roleRepository.save(new RoleEntity(null, "MANAGER"));
+        RoleEntity r = roleRepository.save(new RoleEntity(null, "ADMIN"));
 
         UserEntity defaultAdmin = new UserEntity();
         defaultAdmin.setEmail("admin@gmail.com");

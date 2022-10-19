@@ -68,7 +68,7 @@ public class MenuController {
         Menu response = iMenuService.moveMenuToCategory(menuId, categoryId);
     }
 
-    @CrossOrigin("*")
+
     @DeleteMapping(URL_MANAGER + "/menus/{id}/delete")
     public Map<String, Boolean> deleteProduct(@PathVariable("id") Long id) {
         Boolean deleted = iMenuService.deleteMenu(id);

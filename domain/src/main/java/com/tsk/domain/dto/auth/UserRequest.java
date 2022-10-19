@@ -36,4 +36,5 @@ public class UserRequest {
     private String city;
 
     private String phone;
+
 }
