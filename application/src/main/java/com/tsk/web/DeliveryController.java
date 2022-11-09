@@ -6,6 +6,7 @@ import com.tsk.domain.entities.Deliverer;
 import com.tsk.services.delivery.IDeliveryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,8 +33,8 @@ public class DeliveryController {
         return new ResponseEntity<>(delivers, HttpStatus.OK);
     }
 
-    @PostMapping(URL_MANAGER + "/deliverers/add")
-    public ResponseEntity<AuthResponse> addDeliverer(@RequestBody UserRequest userRequest) {
+    @PostMapping(value = URL_MANAGER + "/deliverers/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<AuthResponse> addDeliverer(@ModelAttribute UserRequest userRequest) {
         AuthResponse response = iDeliveryService.addDeliverer(userRequest);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

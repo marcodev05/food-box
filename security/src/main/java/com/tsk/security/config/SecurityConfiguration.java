@@ -28,7 +28,7 @@ public class SecurityConfiguration {
                 .cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues()).and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/public/**", "/login", "/register").permitAll()
+                .antMatchers("/public/**", "/login", "/register", "/downloadFile/**").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .antMatchers("/deliverer/**").hasAuthority("DELIVERER")
                 .antMatchers("/manager/**").hasAnyAuthority("ADMIN", "MANAGER")

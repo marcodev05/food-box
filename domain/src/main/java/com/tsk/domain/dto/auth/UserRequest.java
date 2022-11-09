@@ -3,6 +3,7 @@ package com.tsk.domain.dto.auth;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -36,5 +37,7 @@ public class UserRequest {
     private String city;
 
     private String phone;
+
+    private MultipartFile file;
 
 }

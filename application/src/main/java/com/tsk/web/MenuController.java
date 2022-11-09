@@ -5,6 +5,7 @@ import com.tsk.domain.entities.Menu;
 import com.tsk.services.menu.IMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,8 +52,8 @@ public class MenuController {
     }
 
 
-    @PostMapping(URL_MANAGER + "/menus/add")
-    public ResponseEntity<Menu> addMenu(@RequestBody MenuDtoRequest request) {
+    @PostMapping(value = URL_MANAGER + "/menus/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Menu> addMenu(@ModelAttribute MenuDtoRequest request) {
         Menu menu = iMenuService.createMenu(request);
         return new ResponseEntity<>(menu, HttpStatus.CREATED);
     }

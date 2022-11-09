@@ -3,6 +3,7 @@ package com.tsk.domain.dto.menu;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 
@@ -27,4 +28,6 @@ public class MenuDtoRequest {
     private Boolean available;
 
     private Long categoryId;
+
+    private MultipartFile file;
 }

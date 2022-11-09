@@ -14,9 +14,12 @@ import com.tsk.mappers.ContactMapper;
 import com.tsk.mappers.UserMapper;
 import com.tsk.services.auth.IAuthService;
 import com.tsk.services.delivery.IDeliveryService;
+import com.tsk.services.file.FileStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,6 +38,9 @@ public class DeliveryServiceImpl implements IDeliveryService {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private FileStorageService fileStorageService;
 
     @Autowired
     ContactRepository contactRepository;
@@ -65,6 +71,10 @@ public class DeliveryServiceImpl implements IDeliveryService {
 
                 Contact contact;
                 contact = contactMapper.fromRequestToContact(userRequest);
+                if(userRequest.getFile() != null){
+                    String uriFile = this.getUriFile(userRequest.getFile());
+                    contact.setPicture(uriFile);
+                }
                 contact = contactRepository.save(contact);
                 deliverer.setContact(contact);
                 deliverer.setAvailable(true);
@@ -76,6 +86,7 @@ public class DeliveryServiceImpl implements IDeliveryService {
                 response.setFirstname(contact.getFirstname());
                 response.setLastname(contact.getLastname());
                 response.setEmail(createdUser.getEmail());
+                response.setPicture(contact.getPicture());
 
                 List<String> roles = createdUser.getRoles().stream()
                         .map(r -> r.getName())
@@ -86,7 +97,15 @@ public class DeliveryServiceImpl implements IDeliveryService {
                 return null;
             }
         }
+    }
 
+    private String getUriFile(MultipartFile file) {
+        String fileName = fileStorageService.storeFile(file);
+        String fileUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/downloadFile/")
+                .path(fileName)
+                .toUriString();
+        return fileUri;
     }
 }
 

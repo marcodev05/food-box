@@ -26,7 +26,7 @@ spring:
     servlet:
         multipart:
             enabled: 'true'
-            max-file-size: 50MB
+            max-file-size: 100MB
 jwt-secret: jpgfop8WyHu1ULufJJXm0PV20/J9BD2HqTAKDZ+/qTv4glDJjyIlo/PIhehQJqSrdIim4fjuwkax9FOCuFQ9nesv32hZ6rbFjETeQSxUPjNzsYGOuULWSR3cI8FuV9InlSZQ7q6dEunLPRf/rZujxiAxGzY8zrMehjM5LNdl7qDEOsc109Yy3HBbOwUdJyyTg/GRPwklLogw9kkldz5+wMvwOT38IlkO2rCrqJpqqt1KmxdOQNbeGwNzZiGiuYId
 
 ---

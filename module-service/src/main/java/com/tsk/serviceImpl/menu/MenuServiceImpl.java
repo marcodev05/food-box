@@ -8,10 +8,16 @@ import com.tsk.domain.entities.Menu;
 import com.tsk.exception.ResourceNotFoundException;
 import com.tsk.mappers.MenuMapper;
 import com.tsk.services.category.ICategoryService;
+import com.tsk.services.file.FileStorageService;
 import com.tsk.services.menu.IMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 @Service
@@ -26,6 +32,8 @@ public class MenuServiceImpl implements IMenuService {
     @Autowired
     private MenuMapper menuMapper;
 
+    @Autowired
+    private FileStorageService fileStorageService;
 
     @Override
     public Menu createMenu(MenuDtoRequest request) {
@@ -34,7 +42,12 @@ public class MenuServiceImpl implements IMenuService {
             Category category = iCategoryService.fetchCategoryById(request.getCategoryId());
             menu.setCategory(category);
         }
+        if(request.getFile() != null){
+            String uriFile = this.getUriFile(request.getFile());
+            menu.setPicture(uriFile);
+        }
         Menu created = menuRepository.save(menu);
+        System.out.println(created.toString());
         return created;
     }
 
@@ -77,4 +90,14 @@ public class MenuServiceImpl implements IMenuService {
         menu.setCategory(category);
         return menuRepository.save(menu);
     }
+
+    private String getUriFile(MultipartFile file) {
+        String fileName = fileStorageService.storeFile(file);
+        String fileUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/downloadFile/")
+                .path(fileName)
+                .toUriString();
+        return fileUri;
+    }
+
 }

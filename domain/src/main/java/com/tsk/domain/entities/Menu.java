@@ -33,7 +33,6 @@ public class Menu {
 
     private Boolean available;
 
-    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne
     @JoinColumn
     private Category category;
