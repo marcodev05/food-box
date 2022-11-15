@@ -47,7 +47,6 @@ public class MenuServiceImpl implements IMenuService {
             menu.setPicture(uriFile);
         }
         Menu created = menuRepository.save(menu);
-        System.out.println(created.toString());
         return created;
     }
 

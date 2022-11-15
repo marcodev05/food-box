@@ -33,8 +33,8 @@ public class Menu {
 
     private Boolean available;
 
-    @ManyToOne
-    @JoinColumn
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category")
     private Category category;
 
     @OneToMany(mappedBy = "menu", fetch = FetchType.LAZY)
